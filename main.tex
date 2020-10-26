@@ -1,0 +1,126 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{ekzhang}
+
+\title{\LaTeX{} Template}
+\author{Eric K. Zhang\\
+\href{mailto:ekzhang@college.harvard.edu}{ekzhang@college.harvard.edu}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+\label{sec:intro}
+This is a simple template for personal use. Macros are defined in the \href{run:./ekz.sty}{\texttt{ekzhang.sty}} package.
+
+\section{Math Macros}
+Several math macros have been added to facilitate the typesetting of common expressions. The \verb|\dd| macro produces the differential symbol with proper spacing. The \verb|\dv| and \verb|\pdv| macros can be used to quickly typeset derivatives. Macros have been added for expectation \verb|\E| and variance \verb|\Var|, which automatically surround their argument with brackets.
+
+For convenience, matrix environments have macro forms. For example, \verb|\mat{x}| is equivalent to \verb|\begin{matrix} x \end{matrix}|. Other bracketed and small variations, including \verb|\bmat|, \verb|\pmat|, \verb|\smat|, \verb|\bsmat|, and \verb|\psmat|, are available.
+
+Several paired delimiters (from \verb|mathtools|) are included. Each delimiter can be dynamically scaled by adding an asterisk \verb|*| to the corresponding macro. For example, \verb|\pa*{x^2}| is equivalent to \verb|\left(x^2\right)|. Other macros include \verb|\br| (brackets), \verb|\cbr| (braces), \verb|\ang| (angle brackets), \verb|\abs| (absolute value), \verb|\floor|, \verb|\ceil|, and \verb|\dabs| (magnitude).
+
+\[ \pdv ut = k\pa*{\pdv[2] ux + \pdv[2] uy + \pdv[2] uz}. \]
+\[ \pdv{L}{x} - \dv{}{t}\br*{\pdv{L}{\dot x}} = 0. \]
+\[ \int_0^2 x^2 \dd x = \eval*{\frac 13 x^3}_0^2. \]
+\[ \oint_{\p\Sigma} \vec F \cdot \dd \vec\ell = \iint_{\Sigma} \del \times \vec F \cdot \dd \vec S. \]
+\[ \det \bmat{2 & 3 \\ 5 & 6} = \abs*{\mat{2 & 3 \\ 5 & 6}}. \]
+\[ \pi(s) = \argmax_a \cbr*{\sum_{s'} P(s' \mid s, a) (R(s' \mid s, a) + \gamma V(s'))}. \]
+\[ \Var{X} = \E{X^2} - \E{X}^2. \]
+\[ \Var{\sum_{i=1}^n X_i} = \sum_{i=1}^n \Var{X_i} + 2\sum_{1 \leq i < j \leq n} \on{Cov}(X_i, X_j). \]
+
+\section{Symbols}
+Some common symbols and operators have been provided, mostly for abstract and linear algebra.
+\[ \C, \F, \Q, \Z, \R, \N, \CO, \CC, \CU, \]
+\[ \into, \onto, \im, \rk, \ch, \id, \ord, \sgn, \]
+\[ \lcm, \argmax, \argmin \]
+\[ \Hom, \End, \Aut, \Ann, \Sym, \GL, \SL, \Ob, \Mor, \del, \extp^n. \]
+
+\section{Theorems and References}
+This is an example of a reference to \cref{sec:intro}.
+
+\begin{definition}[Self-adjoint]
+\label{def:self-adjoint}
+We call a linear operator $T : V \to V$ \textit{self-adjoint} if $T = T^*$. In other words, for all $v, w \in V$, \[
+    \ang{v, Tw} = \ang{Tv, w}.
+\]
+\end{definition}
+
+\begin{theorem}[Spectral theorem]
+Any self-adjoint operator (see \cref{def:self-adjoint}) has an orthonormal basis of eigenvectors, with all real eigenvalues.
+\end{theorem}
+
+\begin{corollary}[Principal axis theorem]
+If $T$ is self-adjoint, then there exists an orthogonal matrix $Q$ of eigenvectors and diagonal matrix $\Lambda$ of real eigenvalues such that \[
+    T = Q\Lambda Q^*.
+\]
+\end{corollary}
+
+\begin{note}
+The full list of available environments is: theorem, corollary, lemma, proposition, definition, example, exercise, note, claim.
+\end{note}
+
+\section{Asymptote Diagram}
+We can use the \verb|asy| environment to draw diagrams, as in \cref{fig:asy-diagram}.
+
+\begin{figure}[h]
+\centering
+\begin{asy}
+    size(6cm);
+    import markers;
+    import geometry;
+
+    draw(unitcircle);
+    draw(scale(0.75)*unitcircle);
+    pair O = (0, 0);
+    pair T = (0, -1);
+    pair P = dir(-90 + 41.4) * 0.75;
+    dot(P);
+    draw(O--T, L=Label("$R$", align=W, position=MidPoint));
+    draw(O--P, L=Label("$r$", align=dir(21.4), position=MidPoint));
+    draw(T--P);
+
+    pair X = 3*P - 2*T;
+    pair Y = P + (1.3, 0);
+    draw(P--X, dashed);
+    draw(P--Y, dotted);
+    markangle("$\theta$", radius=13, Y, P, X);
+    markangle("$\theta$", radius=13, T, O, P);
+    perpendicular(P, NE, O-P, size=2.5mm);
+\end{asy}
+\caption{A diagram drawn with Asymptote.}
+\label{fig:asy-diagram}
+\end{figure}
+
+\pagebreak
+\section{Code Listing}
+We can produce code listings with syntax highlighting using the \verb|minted| package.
+
+\begin{listing}[h]
+\begin{minted}[frame=single,linenos]{python}
+def preorders(n):
+    stack, order = [], []
+    def dfs():
+        if not stack:
+            yield tuple(order)
+            return
+        s, e = stack.pop()
+        for k in range(s, e + 1):
+            order.append(k)
+            if k < e: stack.append((k + 1, e))
+            if k > s: stack.append((s, k - 1))
+            yield from dfs()
+            if k > s: stack.pop()
+            if k < e: stack.pop()
+            order.pop()
+        stack.append((s, e))
+    stack.append((1, n))
+    return dfs()
+\end{minted}
+\caption{Enumeration of rooted binary trees.}
+\end{listing}
+
+\end{document}

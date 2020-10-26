@@ -1,0 +1,103 @@
+\ProvidesPackage{ekzhang}
+
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{asymptote}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumerate}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{minted}
+\usepackage{tikz,tikz-cd}
+\usepackage{verbatim}
+\usepackage[colorlinks=true]{hyperref}
+\hypersetup{
+    linkcolor=NavyBlue,
+    citecolor=ForestGreen,
+    filecolor=Plum,
+    urlcolor=RubineRed,
+}
+\usepackage[capitalise,nameinlink]{cleveref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{note}{Note}
+\newtheorem*{claim}{Claim}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\CO}{\mathcal{O}}
+\newcommand{\CC}{\mathcal{C}}
+\newcommand{\CU}{\mathcal{U}}
+
+\DeclarePairedDelimiter{\pa}{\lparen}{\rparen}
+\DeclarePairedDelimiter{\br}{[}{]}
+\DeclarePairedDelimiter{\cbr}{\{}{\}}
+\DeclarePairedDelimiter{\ang}{\langle}{\rangle}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\dabs}{\|}{\|}
+\DeclarePairedDelimiter{\eval}{.}{|}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+
+\newcommand{\p}{\partial}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\dv}[3][]{\frac{\dd^{#1} #2}{\dd #3^{#1}}}
+\newcommand{\pdv}[3][]{\frac{\p^{#1} #2}{\p #3^{#1}}}
+\newcommand{\del}{\nabla}
+
+\newcommand{\mat}[1]{\begin{matrix} #1 \end{matrix}}
+\newcommand{\smat}[1]{\begin{smallmatrix} #1 \end{smallmatrix}}
+\newcommand{\bmat}[1]{\begin{bmatrix} #1 \end{bmatrix}}
+\newcommand{\bsmat}[1]{\begin{bsmallmatrix} #1 \end{bsmallmatrix}}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\newcommand{\psmat}[1]{\begin{psmallmatrix} #1 \end{psmallmatrix}}
+
+\newcommand{\E}[1]{\operatorname{\mathbf{E}}\left[#1\right]}
+\newcommand{\Var}[1]{\operatorname{\mathbf{Var}}\left[#1\right]}
+\newcommand{\ci}{\perp\!\!\!\perp}
+
+\newcommand{\lcm}{\operatorname*{lcm}}
+\newcommand{\argmax}{\operatorname*{arg max}}
+\newcommand{\argmin}{\operatorname*{arg min}}
+
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\onto}{\twoheadrightarrow}
+
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\rk}{\operatorname{rank}}
+\newcommand{\ch}{\operatorname{char}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\Ann}{\operatorname{Ann}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\SL}{\operatorname{SL}}
+\newcommand{\Ob}{\mathrm{Ob}}
+\newcommand{\Mor}{\mathrm{Mor}}
+\newcommand{\extp}{\@ifnextchar^\@extp{\@extp^{\,}}}
+\def\@extp^#1{\mathop{\bigwedge\nolimits^{\!#1}}}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\on}{\operatorname}
+\newcommand{\mc}{\mathcal}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\nc}{\newcommand}
